@@ -1,6 +1,6 @@
 {
-  "name": "react-modal",
-  "version": "0.1.0",
+  "name": "@aierse/react-modal",
+  "version": "0.1.5",
   "private": false,
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -10,8 +10,11 @@
     "email": "dbsgur2008@gmail.com",
     "url": "https://github.com/Aierse"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "license": "MIT",
-  "description": "패키지 설명",
+  "description": "리액트 모달 라이브러리",
   "dependencies": {
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.6.4",

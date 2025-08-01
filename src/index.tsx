@@ -1,19 +1,66 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import { useEffect, useRef } from 'react'
 
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-);
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+/**
+ *
+ * @example
+ * const [isOpen, setIsOpen] = useState(false)
+ *
+ * <Modal open={isOpen}>
+ *  <YourHTMLCode />
+ * </Modal>
+ *
+ * @returns
+ */
+export default function Modal({
+  children,
+  open,
+  onBackdropClick,
+  beforeOpen,
+  beforeClose,
+  backdropProps,
+  ...props
+}: {
+  children?: React.ReactNode
+  /** 열기 닫기 제어*/
+  open: boolean
+  /** 백드롭 클릭 이벤트 */
+  onBackdropClick?: () => void
+  /** 모달이 열리기 전 이벤트 */
+  beforeOpen?: () => void
+  /** 모달이 닫히기 전 이벤트 */
+  beforeClose?: () => void
+  /** 백드롭 Props */
+  backdropProps?: React.DialogHTMLAttributes<HTMLDialogElement>
+} & React.HTMLAttributes<HTMLDivElement>) {
+  const target = useRef<HTMLDialogElement>(null)
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+  useEffect(() => {
+    if (open) {
+      if (beforeOpen instanceof Function) {
+        beforeOpen()
+      }
+
+      target.current?.showModal()
+    } else {
+      if (beforeClose instanceof Function) {
+        beforeClose()
+      }
+
+      target.current?.close()
+    }
+  }, [open, beforeOpen, beforeClose])
+
+  function backdropEvent() {
+    if (onBackdropClick instanceof Function) {
+      onBackdropClick()
+    }
+  }
+
+  return (
+    <dialog ref={target} onClick={backdropEvent} {...backdropProps}>
+      <div onClick={(e) => e.stopPropagation()} {...props}>
+        {children}
+      </div>
+    </dialog>
+  )
+}
