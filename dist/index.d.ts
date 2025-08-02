@@ -10,12 +10,10 @@
  *
  * @returns
  */
-export default function Modal({ children, open, onBackdropClick, beforeOpen, beforeClose, backdropProps, ...props }: {
+export default function Modal({ children, open, beforeOpen, beforeClose, backdropProps, ...props }: {
     children?: React.ReactNode;
     /** 열기 닫기 제어*/
     open: boolean;
-    /** 백드롭 클릭 이벤트 */
-    onBackdropClick?: () => void;
     /** 모달이 열리기 전 이벤트 */
     beforeOpen?: () => void;
     /** 모달이 닫히기 전 이벤트 */

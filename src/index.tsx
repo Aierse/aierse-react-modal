@@ -14,7 +14,6 @@ import { useEffect, useRef } from 'react'
 export default function Modal({
   children,
   open,
-  onBackdropClick,
   beforeOpen,
   beforeClose,
   backdropProps,
@@ -23,8 +22,6 @@ export default function Modal({
   children?: React.ReactNode
   /** 열기 닫기 제어*/
   open: boolean
-  /** 백드롭 클릭 이벤트 */
-  onBackdropClick?: () => void
   /** 모달이 열리기 전 이벤트 */
   beforeOpen?: () => void
   /** 모달이 닫히기 전 이벤트 */
@@ -50,14 +47,8 @@ export default function Modal({
     }
   }, [open, beforeOpen, beforeClose])
 
-  function backdropEvent() {
-    if (onBackdropClick instanceof Function) {
-      onBackdropClick()
-    }
-  }
-
   return (
-    <dialog ref={target} onClick={backdropEvent} {...backdropProps}>
+    <dialog ref={target} {...backdropProps}>
       <div onClick={(e) => e.stopPropagation()} {...props}>
         {children}
       </div>
