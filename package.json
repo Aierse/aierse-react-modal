@@ -16,8 +16,9 @@
   "description": "리액트 모달 라이브러리",
   "bugs": "https://github.com/Aierse/aierse-react-modal/issues",
   "peerDependencies": {
-    "react": "^18.2.1"
-  },
+  "react": ">=16.8.0 <20.0.0",
+  "react-dom": ">=16.8.0 <20.0.0"
+}
   "devDependencies": {
     "typescript": "^4.9.5",
     "@types/react": "^18.2.1"
